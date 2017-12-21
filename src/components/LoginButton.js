@@ -18,12 +18,15 @@ const styles = {content:{
 
 const signIn = () => {
   return 0.5 < Math.random()?true:false
+  // return false
 }
 
 export default class LoginButton extends React.Component {
-  state = {
-    login: false,
-    modalIsopen:false
+  constructor(props){
+    super(props)
+    signIn()?
+      (this.state = { account: true, modalIsopen: false, password:"password"  }) :
+      (this.state = { account:false, modalIsopen: false, password:"password"  });
   }
 
   openModal = () => {
@@ -40,17 +43,28 @@ export default class LoginButton extends React.Component {
   handleSubmit = (event) =>{
     console.log(event.target);
   }
-
-  showPassword =(event) => {
-
+  handleSignUp = (event) => {
+    console.log("handleSignUp",event.target);
+    this.setState({account: !this.state.account})
+  }
+  handleShowPassword =( event )=> {
+    event.target.checked=== true?this.setState({password: "text"}):this.setState({password: "password"})
   }
 
+  // handlePasswordDisplay =( event )=> {
+    // event.target.checked=== true?( "text"):("password")
+  // }
+
   render() {
-    const signedIn = signIn();
-    console.log(signedIn);
+    const signedIn = this.state.account;
+    const passwordVisible = this.state.password;
+    console.log(passwordVisible);
+    // const passwordDisplay = this.handlePasswordDisplay
+
     return(
       <div>
-        <button onClick={this.openModal} type="button" name="button"> {this.state.login?"Log out":"Log in"} </button>
+        <button onClick={this.openModal} type="button" name="button"> {this.state.account?"Log In":"Sign Up"} </button>
+
         <Modal
          isOpen={this.state.modalIsOpen}
          onAfterOpen={this.afterOpenModal}
@@ -58,13 +72,22 @@ export default class LoginButton extends React.Component {
          style={styles}
          contentLabel="Example Modal"
        >
-         <button className="close-button" onClick={this.closeModal}>close</button>
-         <h2 ref={subtitle => this.subtitle = subtitle}> {signedIn?"Log In":"Sign Up"} </h2>
+         <button className="close-button" onClick={this.closeModal}>X</button>
+         <h2 className="log-in-h2" ref={subtitle => this.subtitle = subtitle}> {signedIn?"Log In":"Sign Up"} </h2>
 
-         {signedIn?<LogInForm showPassword = {this.showPassword} handleSubmit={this.handleSubmit}/>:<SignUpForm handleSubmit={this.handleSubmit}/>}
-
-
-
+         {this.state.account?
+           <LogInForm
+           handleShowPassword={this.handleShowPassword}
+           passwordVisible={passwordVisible}
+           handleSubmit={this.handleSubmit}
+           handleSignUp={this.handleSignUp}
+           />:
+           <SignUpForm
+           handleShowPassword={this.handleShowPassword}
+           passwordVisible={passwordVisible}
+           handleSubmit={this.handleSubmit}
+           handleSignUp={this.handleSignUp}
+           />}
        </Modal>
 
       </div>

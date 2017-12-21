@@ -12,12 +12,12 @@ export default class NavMenu extends React.Component{
     }
 
   componentDidMount(){
-    console.log("componentDidMount",this.state);
+    // console.log("componentDidMount",this.state);
   }
 
   handleMouseEnter = (event)=>{
     this.setState({ menu: 'show',icon: opening });
-    console.log(this.state);
+    // console.log(this.state);
 
   }
   handleMouseLeave = (event)=>{

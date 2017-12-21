@@ -10,7 +10,7 @@ export default class NavBar extends React.Component{
       <div className="nav-bar">
 
         <Menu />
-
+        
         <a href="#"><img src={logo} alt="company logo" className="main-logo"/> </a>
         <LoginButton />
       </div>
