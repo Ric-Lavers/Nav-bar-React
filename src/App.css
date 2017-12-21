@@ -1,0 +1,96 @@
+.App {
+  text-align: center; }
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white; }
+
+.App-title {
+  font-size: 1.5em; }
+
+.App-intro {
+  font-size: large; }
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: #E0DCD2;
+  overflow: visible; }
+  .nav-bar .main-logo {
+    height: 60px; }
+  .nav-bar .login {
+    margin-right: 30px; }
+  .nav-bar .hamburger {
+    margin-left: 30px;
+    align-self: flex-start;
+    z-index: 10;
+    position: relative;
+    overflow: visible; }
+    .nav-bar .hamburger img {
+      height: 60px;
+      width: 60px;
+      overflow: visible; }
+  .nav-bar .dropdown-menu {
+    position: absolute;
+    width: 120px;
+    top: 60px;
+    background-color: #E2C08D;
+    z-index: -1;
+    border-radius: 0 0 12px 12px;
+    border: 8.5px solid black;
+    border-top: 0px; }
+  .nav-bar .hide {
+    height: 0px;
+    opacity: 0;
+    color: transparent;
+    transition: opacity 1.0s,height 0.5s; }
+  .nav-bar .show {
+    color: black;
+    height: 150px;
+    opacity: 1;
+    transition: color 1.2s,opacity 1s,height 1s; }
+  .nav-bar .dropdown-list {
+    height: 134px;
+    list-style: none;
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */ }
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */ }
