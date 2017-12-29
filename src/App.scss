@@ -1,3 +1,8 @@
+
+
+h6{
+  margin-top:4px ;margin-bottom:4px ;
+}
 .App {
   text-align: center;
 }
@@ -7,14 +12,6 @@
   height: 150px;
   padding: 20px;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
 }
 
 .nav-bar{
@@ -28,9 +25,15 @@
 
   .main-logo{
     height:60px;
+
+  }
+  .glow{
+    box-shadow: 8px 8px 12px rgba(yellow,0.5) inset, 8px 8px 12px rgba(yellow, 0.6);
+    border:2px solid yellow;
   }
   .login{
     margin-right: 30px;
+    width:60px;
   }
   .hamburger{
     margin-left: 30px;
@@ -81,17 +84,65 @@
 }
 
 
-
 .close-button{
+  background-image: url('images/cancel.svg');
+  background-size: contain;
+
+  height:20px ;width:20px ;
+  padding-right: 5px;padding-left: 5px;
   position: absolute !important;
   right: 3px;
   top: 3px;
+  cursor: pointer;
 
-  border: 2px solid #7597F6;
+  border: 0px solid #7597F6;
   border-radius: 50%;
   color:red;
   position:relative;
 }
 .log-in-h2{
   margin-top:6px;
+}
+
+
+// AudioPlayer
+
+.audio-player{
+  height:250px ;width:500px ;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 68% 32%;
+  .artist-image{
+    grid-row: 1 / 3;
+    grid-column: 1 / 2;
+    background-color: powderblue;
+  }
+  .artist-details{
+    background-color: red;
+  }
+  .player{
+    background-color: #ccc;
+    display:flex;
+    justify-content: space-between;
+    .play{
+      height: 75px;width: 75px;
+      border: 1px solid blue;
+      border-radius:50%;
+      background-image:url('images/cancel.svg');
+      background-size: cover;
+    }
+    .timeline{
+      height: 10px;width:150px;
+      background-color: #eee;
+      margin-top:35px;
+    }
+    .volume{
+      height:25px ;width:25px;
+      margin-top:27.5px;
+      background-image: url('images/volume.svg');
+      background-size: contain;
+      cursor:pointer;
+    }
+  }
 }

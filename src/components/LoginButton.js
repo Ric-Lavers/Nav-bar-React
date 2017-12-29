@@ -63,7 +63,7 @@ export default class LoginButton extends React.Component {
 
     return(
       <div>
-        <button onClick={this.openModal} type="button" name="button"> {this.state.account?"Log In":"Sign Up"} </button>
+        <button className="login" onClick={this.openModal} type="button" name="button"> {this.state.account?"Log In":"Sign Up"} </button>
 
         <Modal
          isOpen={this.state.modalIsOpen}
@@ -72,7 +72,7 @@ export default class LoginButton extends React.Component {
          style={styles}
          contentLabel="Example Modal"
        >
-         <button className="close-button" onClick={this.closeModal}>X</button>
+         <button className="close-button" onClick={this.closeModal}> </button>
          <h2 className="log-in-h2" ref={subtitle => this.subtitle = subtitle}> {signedIn?"Log In":"Sign Up"} </h2>
 
          {this.state.account?

@@ -45,8 +45,8 @@ export default function SignUpForm(
         <label> <input type="text" placeholder="lastName"/> </label><br/>
         <label>  <input type="email" placeholder="email"/> </label><br/>
         <label> <input type={passwordVisible} placeholder="password"/> </label><br/>
-        <label> <input type={passwordVisible} placeholder="re-enter"/> </label><br/>
-        <input type="checkbox" onChange={handleShowPassword}/>show password <br/>
+        <label> <input type={passwordVisible} placeholder="re-enter"/> </label>
+        <h6><input type="checkbox" onChange={handleShowPassword}/>show password</h6> <br/>
         <button type="submit">login</button>
       </form>
 

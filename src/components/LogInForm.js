@@ -6,8 +6,8 @@ export default function LogInForm({passwordVisible,handleSignUp,handleSubmit,han
     <div>
       <form onSubmit = {handleSubmit}>
         <label> <input type="text" placeholder="email"/> </label><br/>
-        <label> <input style={{letterSpacing: "1px"}}type={passwordVisible} /> </label><br/>
-        <input type="checkbox" onChange={handleShowPassword}/>show password <br/>
+        <label> <input style={{letterSpacing: "1px"}}type={passwordVisible} /> </label>
+        <h6><input type="checkbox" onChange={handleShowPassword}/>show password</h6> <br/>
         <button type="submit">login</button>
       </form>
 
