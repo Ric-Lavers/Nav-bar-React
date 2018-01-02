@@ -32,6 +32,7 @@ export default class NavMenu extends React.Component{
         <a href="#" onMouseLeave={this.handleMouseLeave} className="hamburger">
 
           <img
+          className="ani"
           onClick={this.handleToggle}
           onMouseEnter={this.handleMouseEnter}
           src={this.state.icon}
