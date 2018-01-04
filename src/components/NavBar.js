@@ -45,7 +45,7 @@ export default class NavBar extends React.Component{
     }
 
     // TweenMax.staggerFrom( ".ani", 1, {opacity:0.2,x:200, backgroundColor:"blue", ease: SlowMo.ease.config(0.7, 0.7, false)} );
-    
+
     // _flyUp(".ani", 3)
 
     console.log("componentDidMount");

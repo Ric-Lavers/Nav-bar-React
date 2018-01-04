@@ -1,34 +1,46 @@
-
+// The purpose if this function is to return a string art SVG based upon the width & hieght (in viewpoints), the number of side and the number of steps (or intervals)
+const roundTo = require('round-to');
 Array.prototype.rotate = function(n) {
     return this.slice(n, this.length).concat(this.slice(0, n));
 }
 
-function findSteps(sides,steps, stepLength, endPoint, center) {
-  let result = []
 
-  for (let j = 1; j < steps+1; j++) { // step down
 
-    if (endPoint > 0) {//if the values are negative they need to add visa versa
-      result[j-1]=(Number(endPoint) - stepLength*j)
+function angles(sides){ return ( 2*( Math.PI/sides ) )}
 
-    }else if (Math.abs(endPoint) === 0){
-      result[j-1]= (Number(endPoint))
-
-    }else if(endPoint < 0){
-      result[j-1]= (Number(endPoint)+(stepLength*j))
+//creates side arrays with first entry
+function createEndpoints(sides,lengthX,lengthY) {
+  let d = angles(sides)
+  let data = new Object()
+  console.log(data);
+  for (let i = 0; i < sides; i++) {
+    console.log(i);
+      data[`_${i}`]={
+        x:[Math.round( lengthX*Math.cos(d*i)  )],
+        y:[Math.round( lengthY*Math.sin(d*i)  )]
+      }
     }
+  console.log(data);
+  return data
+}
+
+function findSteps(steps, endPoint, center) {
+  let result = []
+  let step = endPoint/steps
+  console.log("____________");
+  console.log(steps);
+  console.log("____________");
+  for (let j = 1; j < steps+1; j++) { // step down
+    result[j-1]=roundTo(  (Number(endPoint) - (step*j)) ,2 )
+    // if (endPoint > 0) {//if the values are negative they need to add visa versa
+    //   result[j-1]=(Number(endPoint) - (step*j))
+    //
+    // }else if (Math.abs(endPoint) === 0){
+    //   result[j-1]= (Number(endPoint))
+    // }else if(endPoint < 0){
+    //   result[j-1]= (Number(endPoint)+step*j)
+    // }
   }
-  // for (let j = 1; j < steps; j++) { // step down
-  //   if (endPoint > center) {//if the values are negative they need to add visa versa
-  //     result[j-1]=(Number(endPoint) - stepLength*j)
-  //
-  //   }else if (Math.abs(endPoint) == center){
-  //     result[j-1]= (Number(endPoint))
-  //
-  //   }else if(endPoint < center){
-  //     result[j-1]= (Number(endPoint)+(stepLength*j))
-  //   }
-  // }
   return result
 }
 
@@ -67,9 +79,8 @@ function arrangeLayers(data) {
   return result
 }
 
-function angles(sides){ return ( 2*( Math.PI/sides ) )}
 
-// The purpose if this function is to return a string art SVG based upon the width & hieght (in viewpoints), the number of side and the number of steps (or intervals)
+
 export default function polypoint(w, h, sides, steps, layers=true) {
   let centerX, centerY, lengthX, lengthY;
   let d, endpoint, stepX, stepY, data , endX, endY
@@ -82,32 +93,16 @@ export default function polypoint(w, h, sides, steps, layers=true) {
   stepY = lengthY/steps
 
   d = angles(sides)
-  data = new Object()
-  for (let i = 0; i < sides; i++) {
-      data[`_${i}`]={
-        x:[Math.round( (lengthX*Math.cos(d*i)) /*+centerX*/)],
-        y:[Math.round( (lengthY*Math.sin(d*i)) /*+centerY*/)]
-      }
-    }
-
-  // console.log("___________".yellow);
-  // console.log(data);
-  // console.log("___________".yellow);
+  data = createEndpoints(sides,lengthX,lengthY)
 
   for (let i = 0; i < sides; i++) { //take each side
 
     endX = data[`_${i}`].x //store X endpoint
     endY = data[`_${i}`].y //store Y endpoint
 //if layered steps needs to be plus one!
-    data[`_${i}`].x = data[`_${i}`].x.concat(findSteps(sides,steps,stepX, endX, centerX) )
-    data[`_${i}`].y = data[`_${i}`].y.concat(findSteps(sides,steps,stepY, endY, centerY) )
+    data[`_${i}`].x = data[`_${i}`].x.concat(findSteps(steps, endX, centerX) )
+    data[`_${i}`].y = data[`_${i}`].y.concat(findSteps(steps, endY, centerY) )
   }
-  // console.log("___________".yellow);
-  // console.log(data);
-  // console.log("___________".yellow);
-  // console.log(centerX,centerY);
-
-  // reverse alternating sides
   data = reverseOdd(data)
   let points = layers?(`${arrangeLayers(data)}`):(`${arrangeNoLayers(data)}`)
 return(
