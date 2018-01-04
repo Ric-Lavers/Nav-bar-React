@@ -39,7 +39,7 @@ export default class NavMenu extends React.Component{
           alt="hamburger icon"
           />
           <div className = {`dropdown-menu ${this.state.menu}`}>
-            <ul className='dropdown-list'>
+            <ul className={`dropdown-list ${this.state.menu}`}>
               <a><li>account</li></a>
               <a><li>messages</li></a>
               <a><li>help</li></a>

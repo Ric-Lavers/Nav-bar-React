@@ -41,6 +41,7 @@
     "react-modal": "^3.1.8",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "round-to": "^2.0.0",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
@@ -52,7 +53,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start": "npm-run-all -p watch-css start-js",
+    "start": "PORT=7000 npm-run-all -p watch-css start-js",
     "build": "npm-run-all build-css build-js",
     "start-js": "node scripts/start.js",
     "build-js": "node scripts/build.js",

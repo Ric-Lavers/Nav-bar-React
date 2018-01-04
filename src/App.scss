@@ -59,13 +59,15 @@ h6{
 
 
   .hide{
+    // display: none;
     height: 0px;
     opacity: 0;
     color:transparent;
 
-    transition: opacity 1.0s,height 0.5s;
+    transition:  opacity 1.0s,height 0.5s;
   }
   .show{
+    // display:block;
     color:black;
     height:150px;
     opacity: 1;
@@ -144,5 +146,30 @@ h6{
       background-size: contain;
       cursor:pointer;
     }
+  }
+}
+svg{
+  stroke:blue;
+}
+.controls{
+  margin-left: 150px;
+  padding:12px;
+  max-width:300px;
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  p{
+    text-align: center
+  }
+  .svg-control{
+    text-align: center;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    .button-title{
+      // grid-column-start: 1 ;
+      // grid-column-end: 3;
+      grid-column:1 /3;
+    }
+
   }
 }
