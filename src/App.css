@@ -121,15 +121,20 @@ h6 {
       background-size: contain;
       cursor: pointer; }
 
+.polypoint {
+  background-color: black;
+  padding-top: 75px;
+  padding-bottom: 75px; }
+
 svg {
-  stroke: blue; }
+  margin: 0 auto; }
 
 .controls {
   height: 200px;
   margin-left: 150px;
   display: grid;
   grid-gap: 6px;
-  grid-template-columns: repeat(8, 80px);
+  grid-template-columns: repeat(9, 80px);
   grid-template-rows: 2fr, 1fr; }
   .controls p {
     text-align: center; }
@@ -144,5 +149,17 @@ svg {
     .controls .svg-control .toggle-button {
       grid-column: 1 /3;
       grid-row: 1 /3; }
+  .controls .rotate-contol-container {
+    position: relative; }
+    .controls .rotate-contol-container .rotate-control {
+      width: 100px;
+      border: '1px solid green';
+      margin-left: 20px;
+      transform-origin: 50px 50px;
+      transform: rotate(-90deg); }
+    .controls .rotate-contol-container .rotate-input {
+      width: 80px;
+      position: absolute;
+      bottom: 18px; }
   .controls .slider-picker {
-    grid-column: 1 /9; }
+    grid-column: 1 /8; }

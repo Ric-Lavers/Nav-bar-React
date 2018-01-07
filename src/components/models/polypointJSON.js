@@ -62,7 +62,7 @@ function arrangeLayers(data) {
 }
 
 
-export default function polypoint(w, h, sides, steps, layers=true) {
+export default function polypoint(w, h, sides, steps, layers=true, style) {
   let centerX, centerY, lengthX, lengthY;
   let d, endpoint, stepX, stepY, data , endX, endY
   // find center point

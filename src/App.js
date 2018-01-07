@@ -7,7 +7,7 @@ import playlist from './playlist.json'
 // import AudioPlayer from './AudioPlayer'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {Whoops404} from './components/Whoops404';
-import Body from './components/Body'
+import StringArtGenerator from './components/Body'
 
 class App extends Component {
   state = {};
@@ -22,7 +22,9 @@ class App extends Component {
     return (
       <div>
         <NavBar logo={mainLogo} />
-        <Body/>
+        <Router>
+         <Route  path="/svg" render= {() => <StringArtGenerator/>}/>
+        </Router>
         <Router>
           <Route  path="/audio" render={
             () =>(

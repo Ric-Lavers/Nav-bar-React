@@ -1215,6 +1215,12 @@ callsites@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-2.0.0.tgz#06eb84f00eea413da86affefacbffb36093b3c50"
 
+camel-2-dash@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/camel-2-dash/-/camel-2-dash-0.1.0.tgz#5400197a0a2c0e128d131797a7cb152f3ee7939c"
+  dependencies:
+    jq-trim "^0.1.1"
+
 camel-case@3.0.x:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-3.0.0.tgz#ca3c3688a4e9cf3a4cda777dc4dcbc713249cf73"
@@ -3860,6 +3866,10 @@ jest@20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
+jq-trim@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/jq-trim/-/jq-trim-0.1.2.tgz#87d926d944d39bd4b499cb837c3576a910b58618"
+
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.0.tgz#9e566fee624751a1d720c966cd6226d29d4025aa"
@@ -6380,6 +6390,14 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
+style-css@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/style-css/-/style-css-1.0.2.tgz#d93c33fe07845350c3b5aa71bf717a87bb5aae7e"
+  dependencies:
+    camel-2-dash "~0.1.0"
+    to-css "~1.2.1"
+    xtend "~4.0.1"
+
 style-loader@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.19.0.tgz#7258e788f0fee6a42d710eaf7d6c2412a4c50759"
@@ -6548,6 +6566,14 @@ tmpl@1.0.x:
 to-arraybuffer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz#7d229b1fcc637e466ca081180836a7aabff83f43"
+
+to-css@~1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/to-css/-/to-css-1.2.1.tgz#24271c727332ed2090dde7a4a652fadb3062926b"
+  dependencies:
+    arrify "^1.0.0"
+    object-assign "^4.0.1"
+    repeat-string "^1.5.2"
 
 to-fast-properties@^1.0.3:
   version "1.0.3"
@@ -7038,7 +7064,7 @@ xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
 
-xtend@^4.0.0, xtend@^4.0.1:
+xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
