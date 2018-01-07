@@ -30,7 +30,7 @@ export default class NavBar extends React.Component{
     console.log("ANYTHING");
   }
 
-  componentDidMount(){
+  componentDidMount(){/*
     let logo = document.getElementById("almost-anything");
     let burger = document.getElementById("nav-menu");
     function _flyDown(element,amount) {
@@ -101,7 +101,7 @@ oscillator.stop(ac.currentTime + 1);
 //   videoElement,srcObject = strem;
 //   const recorder = new MediaRecorder(stream);
 // });
-
+*/
 }//componentDidMount
 
 

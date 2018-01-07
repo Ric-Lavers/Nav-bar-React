@@ -152,24 +152,35 @@ svg{
   stroke:blue;
 }
 .controls{
+  height: 200px;
   margin-left: 150px;
-  padding:12px;
-  max-width:300px;
+  // width:640px;
+  // padding:12px;
+  // max-width:500px;
   display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 6px;
+  grid-template-columns: repeat(8, 80px);
+  grid-template-rows: 2fr, 1fr;
   p{
     text-align: center
   }
+
   .svg-control{
+    min-width:80px;
     text-align: center;
     display: grid;
     grid-template-columns:1fr 1fr;
     .button-title{
-      // grid-column-start: 1 ;
-      // grid-column-end: 3;
+      height:30px;
       grid-column:1 /3;
-    }
 
+    }
+    .toggle-button{
+      grid-column:1 /3;
+      grid-row: 1 /3;
+    }
+  }
+  .slider-picker{
+    grid-column:1 /9
   }
 }

@@ -1,7 +1,11 @@
 import React from 'react';
+import { SketchPicker, SliderPicker } from 'react-color';
 import Polypoint from './models/polypointJSON'
 import Controls from './svgControls';
+import {TweenMax} from "gsap";
+
 const roundTo = require('round-to');
+
 
 
 export default class Body extends React.Component {
@@ -14,38 +18,33 @@ export default class Body extends React.Component {
       width:400,
       height:400,
       layered:true,
-      opacity:0.5
+      opacity:0.5,
+      strokeWidth:4,
+      fillColor:{r: 255, g: 210, b: 245, a: 0.2}
     };
 
   }
   componentDidMount(){
-
-  }
-  handleWidth = (event) => {
-        console.log(event.target);
-    if (this.state.width <= 500 && this.state.width >= 50 ) {
-      event.target.value==='+'?
-      this.setState({width: this.state.width+50}):
-      this.setState({width: this.state.width-50})
-    }
-    if (this.state.width < 50) {
-      this.setState({width: 500})
-    }else if (this.state.width > 500){
-      this.setState({width: 50})
-    }
+    // const poly = document.getElementById('polypoint');
+    // TweenMax.to(poly, 1, {rotation:180}  ) ;
   }
 
-  handleHeight = (event) => {
+  handleChangeComplete = (color, event) =>{
+    this.setState({fillColor:color.rgb});
+  }
 
-    if (this.state.height <= 500 && this.state.height >= 50 ) {
+  handleSize = (event, props) => {
+    console.log(props);
+    const size = props.stateTitle
+    if (this.state[size] <= 500 && this.state[size] >= 50 ) {
       event.target.value==='+'?
-      this.setState({height: this.state.height+50}):
-      this.setState({height: this.state.height-50})
+      this.setState({[size]: this.state[size]+50}):
+      this.setState({[size]: this.state[size]-50})
     }
-    if (this.state.height < 50) {
-      this.setState({height: 500})
-    }else if (this.state.height > 500){
-      this.setState({height: 50})
+    if (this.state[size] < 50) {
+      this.setState({[size]: 500})
+    }else if (this.state[size] > 500){
+      this.setState({[size]: 50})
     }
   }
 
@@ -67,6 +66,25 @@ export default class Body extends React.Component {
     }
   }
 
+  handleStrokeWidth = (event, props) => {
+    console.log(props)
+    const stateProp = props.stateTitle
+    if (this.state[stateProp] >1) {
+      event.target.value==='+'?
+      this.setState({[stateProp]: this.state[stateProp]+1}):
+      this.setState({[stateProp]: this.state[stateProp]-1})
+    }else if (this.state[stateProp] ===1) {
+      event.target.value==='+'?
+      this.setState({[stateProp]: this.state[stateProp]+1}):
+      this.setState({[stateProp]: this.state[stateProp]-0.25})
+    }else if (this.state[stateProp] <=1 && this.state[stateProp] >0 ) {
+      event.target.value==='+'?
+      this.setState({[stateProp]: this.state[stateProp]+0.25}):
+      this.setState({[stateProp]: this.state[stateProp]-0.25})
+    }else if (this.state[stateProp] <=0 && event.target.value==='+') {
+      this.setState({[stateProp]: this.state[stateProp]+0.25})
+    }
+  }
   handleSteps = (event) => {
     if (this.state.steps < 16 && this.state.steps > 1 ) {
       event.target.value==='+'?
@@ -86,7 +104,6 @@ export default class Body extends React.Component {
   }
 
   handleOpacity = (event) => {
-
     if(this.state.opacity < 1 && this.state.opacity > 0) {
       event.target.value==='+'?
       this.setState({opacity: roundTo(this.state.opacity+0.1,3)}) :
@@ -98,20 +115,12 @@ export default class Body extends React.Component {
       this.setState({opacity: roundTo(this.state.opacity+0.1,3)})
     }
   }
-  handleClick = (event) => {
-    if (this.state.clicks <16) {
-      const newClick = this.state.clicks+=1
-      this.setState(
-        {clicks:  this.state.clicks+1}
-      )
-    }else{
-      this.setState(
-        {clicks: 1}
-      )
-    }
-  }
   handleLayers =(event) =>{
      this.setState({layered: !this.state.layered})
+  }
+  makeSVG = () => {
+    let x = Polypoint(this.state.width,this.state.height,this.state.sides,this.state.steps,this.state.layered);
+    return (x)
   }
 
   render() {
@@ -120,37 +129,80 @@ export default class Body extends React.Component {
     const width = this.state.width;
     const height = this.state.height;
     const opacity = this.state.opacity;
+    const strokeWidth = this.state.strokeWidth;
+    const strokeColor = this.state.strokeColor;
 
-    const style =  {fill:`rgba(255, 210,245, ${opacity})`}
+    const style =  {stroke:strokeColor ,strokeWidth:strokeWidth, fill:`rgba(${this.state.fillColor.r},${this.state.fillColor.g},${this.state.fillColor.b}, ${opacity})`}
+
     const layered = this.state.layered
-    console.log("_2",this.state.height);
-    const svg = Polypoint(height,width,sides,steps,layered)
+
+    const svg = Polypoint(width,height,sides,steps,layered);
     return(
-      <div>
-
-
+    <div>
       <div className = "controls" style={{maxWidth:300}}>
 
+        <Controls
+          state = {steps}
+          title="steps"
+          handleClick={this.handleSteps}/>
 
-        <Controls title="steps"  handleClick={this.handleSteps}/>
-        <Controls title="sides"  handleClick={this.handleSides}/>
-        <Controls title="width"  handleClick={this.handleWidth}/>
-        <Controls title="height" handleClick={this.handleHeight}/>
-        <Controls title="opacity" handleClick={this.handleOpacity}/>
+        <Controls
+          title="sides"
+          state= {sides}
+          handleClick={this.handleSides}/>
 
-        <button onClick={this.handleLayers}> layers </button>
+        <Controls
+          title= "width"
+          stateTitle="width"
+          state= {width}
+          handleClick={this.handleSize}/>
 
-        <p>{steps}</p>
-        <p>{sides}</p>
-        <p>{width}</p>
-        <p>{height}</p>
-        <p>{opacity}</p>
-        <p>{layered?"layered polygon":"single polygon"}</p>
+        <Controls
+          title= "height"
+          stateTitle="height"
+          state= {height}
+          handleClick={this.handleSize}/>
+
+        <Controls
+          title= "opacity"
+          state= {opacity}
+          handleClick={this.handleOpacity}/>
+
+        <Controls
+          title="Stroke Width"
+          stateTitle="strokeWidth"
+          state= {strokeWidth}
+          handleClick={this.handleStrokeWidth} />
+
+
+        <div className="svg-control">
+            <button className="toggle-button"
+              onClick={this.handleLayers}>
+               {layered?"singled":"layered"}
+             </button>
+            <p className="button-title">{layered?"layered polygon":"single polygon"}</p>
+        </div>
+
+        <div className="svg-control">
+            <button className="toggle-button"
+              onClick={this.toggleColor}>
+               {layered?"singled":"layered"}
+             </button>
+            <p className="button-title">{strokeColor}</p>
+        </div>
+
+
+        <SliderPicker
+          className="slider-picker"
+          color={ this.state.fillColor }
+          onChange={this.handleChangeComplete}
+          />
       </div>
       <td
+      id="polypoint"
       style={style}
       dangerouslySetInnerHTML={{__html: svg}} />
-      </div>
+    </div>
     )
   }
 }
