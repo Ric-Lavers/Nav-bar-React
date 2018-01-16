@@ -6,8 +6,8 @@ import Audio from 'react-audioplayer';
 import playlist from './playlist.json'
 // import AudioPlayer from './AudioPlayer'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {Whoops404} from './components/Whoops404';
 import StringArtGenerator from './components/Body'
+
 
 class App extends Component {
   state = {};
@@ -20,12 +20,11 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <NavBar logo={mainLogo} />
-        <Router>
-         <Route  path="/svg" render= {() => <StringArtGenerator/>}/>
-        </Router>
-        <Router>
+      <Router>
+         <div>
+         <NavBar logo={mainLogo} />
+         <Route  path="/svg" component={StringArtGenerator} />
+         <Route  path="/svg" component={StringArtGenerator} />
           <Route  path="/audio" render={
             () =>(
             <div>
@@ -40,8 +39,10 @@ class App extends Component {
             </div>
           )
           }/>
-        </Router>
+
+
       </div>
+    </Router>
     )
   }
 }

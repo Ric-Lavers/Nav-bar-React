@@ -3,6 +3,8 @@ import closed from '../images/hamburger.svg';
 import closing from '../images/hamburger-closing.svg';
 import opening from '../images/hamburger-opening.svg';
 
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
 
 export default class NavMenu extends React.Component{
 
@@ -30,7 +32,6 @@ export default class NavMenu extends React.Component{
   render(){
     return(
         <a href="#" onMouseLeave={this.handleMouseLeave} className="hamburger">
-
           <img
           className="ani"
           onClick={this.handleToggle}
@@ -40,9 +41,9 @@ export default class NavMenu extends React.Component{
           />
           <div className = {`dropdown-menu ${this.state.menu}`}>
             <ul className={`dropdown-list ${this.state.menu}`}>
-              <a><li>account</li></a>
-              <a><li>messages</li></a>
-              <a><li>help</li></a>
+              <li><Link to='/svg'>svg</Link></li>
+              <li><Link to='/player'>player</Link></li>
+              <li><Link to='/'>home</Link></li>
             </ul>
           </div>
         </a>

@@ -5470,6 +5470,10 @@ react-audioplayer@^0.3.1:
     react-dom "^15.6.1"
     react-motion "^0.4.7"
 
+react-blog@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-blog/-/react-blog-0.0.1.tgz#28f1dd825434989f4a9147b4b0e171574d903937"
+
 react-color@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.13.8.tgz#bcc58f79a722b9bfc37c402e68cd18f26970aee4"

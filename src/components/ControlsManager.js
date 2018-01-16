@@ -3,7 +3,7 @@ import Polypoint from './models/polypointJSON'
 import Controls from './svgControls'
 
 import {TweenMax} from "gsap";
-import { SketchPicker, SliderPicker } from 'react-color';
+import {TwitterPicker, SketchPicker, SliderPicker } from 'react-color';
 
 const roundTo = require('round-to');
 
@@ -21,7 +21,8 @@ export default class ControlManager extends React.Component {
       fillColor:{r: 255, g: 210, b: 245, a: 0.2},
       strokeColor:{r: 0, g: 0, b: 245, a: 1},
       toggleColor:true,
-      rotate:0
+      rotate:0,
+      backgroundColor:{r: 100, g: 100, b: 245, a: 1}
     };
 
   }
@@ -30,7 +31,6 @@ export default class ControlManager extends React.Component {
     // TweenMax.to(poly, 1, {rotation:180}  ) ;
   }
   handleToggleColor = (event)=>{
-    console.log(this.state.toggleColor);
     event.preventDefault();
     const toggle = this.state.toggleColor?false:true
     this.setState({toggleColor:toggle})
@@ -45,8 +45,10 @@ export default class ControlManager extends React.Component {
     this.state.toggleColor?
     this.setState({fillColor:color.rgb}):
     this.setState({strokeColor:color.rgb});
-
-    console.log(this.state.fillColor, this.state.strokeColor);
+  }
+  handleChangeBackgroundColor = (color, event ) => {
+    console.log(color.rgb);
+    this.setState({backgroundColor:color.rgb})
   }
 
   handleSize = (event, props) => {
@@ -121,13 +123,11 @@ export default class ControlManager extends React.Component {
       this.setState( {opacity: opacity+0.1} )
     }
     //finer selection
-    else if (opacity <=0.1 && opacity >0 && direction ===-1 ) {//max
-      this.setState( {opacity: roundTo(opacity-0.02,3)} )
-    }
     else if (opacity <0.1 && direction === 1 && opacity > 0 ) {//general
       this.setState( {opacity: roundTo(opacity+0.02,3)} )
-    }
-    else if (opacity <=0 && direction === 1 ) {//min
+    }else if (opacity <=0.1 && opacity >0 && direction ===-1 ) {//max
+      this.setState( {opacity: roundTo(opacity-0.02,3)} )
+    }else if (opacity <=0 && direction === 1 ) {//min
       this.setState( {opacity: roundTo(opacity+0.02,3)} )
     }
 
@@ -135,34 +135,37 @@ export default class ControlManager extends React.Component {
   handleLayers =(event) =>{
      this.setState({layered: !this.state.layered})
   }
-  makeSVG = () => {
-    let x = Polypoint(this.state.width,this.state.height,this.state.sides,this.state.steps,this.state.layered);
-    return (x)
+
+  foo = (event) =>{
+    console.log(event);
+    this.props.handleStringArt(event)
   }
 
   render () {
-    const sides = this.state.sides;
-    const steps = this.state.steps;
-    const width = this.state.width;
-    const height = this.state.height;
-    const opacity = this.state.opacity;
-    const strokeWidth = this.state.strokeWidth;
-    const strokeColor = this.state.strokeColor;
-    const rotate = this.state.rotate;
-    const fillColor = this.state.fillColor;
+    this.foo(this.state)
+    const {sides, steps,width,height,layered,
+      opacity,strokeWidth,strokeColor,rotate,fillColor,backgroundColor} = this.state;
 
-    const layered = this.state.layered
-    const style =
-     {
-       transform:`rotate(${rotate}deg)`,
+    const stylen ={
+     transform:`rotate(${rotate}deg)`,
      strokeWidth:strokeWidth,
      stroke:`rgba(${strokeColor.r},${strokeColor.g},${strokeColor.b}, 1)` ,
      fill:`rgba(${fillColor.r},${fillColor.g},${fillColor.b}, ${opacity})`}
 
+    const style = {
+      backgroundColor:`rgba(${this.state.backgroundColor.r},${this.state.backgroundColor.g},${this.state.backgroundColor.b}, 1 )`,
+      borderWidth: 2
+      }
+      let xcv = style.backgroundColor
+      console.log("____",this.state.backgroundColor);
+      console.log("backgroundSVG",style.backgroundColor);
+      console.log("fill",style.fill);
+
 
     const svg = Polypoint(width,height,sides,steps,layered);
+    // ____________
     return(
-    <div>
+    <div >
       <div className = "controls" style={{maxWidth:300}}>
 
         <Controls
@@ -217,6 +220,20 @@ export default class ControlManager extends React.Component {
           </form>
         </div>
 
+        <div className="rotate-contol-container" >
+
+
+              <TwitterPicker
+                className="slider-picker"
+                color={
+                  this.state.toggleColor?
+                  this.state.fillColor:
+                  this.state.strokeColor  }
+                onChange={ this.handleChangeBackgroundColor }
+                />
+
+        </div>
+
 
         <SliderPicker
           className="slider-picker"
@@ -239,14 +256,14 @@ export default class ControlManager extends React.Component {
              </p>
           </div>
       </div>
-      <div  class="polypoint">
+      <div  style={ {backgroundColor:xcv} } class="polypoint">
         <td
-        style={style}
+        style={stylen}
         dangerouslySetInnerHTML={{__html: svg}} />
         <td
-        style={style}
+        style={stylen}
         dangerouslySetInnerHTML={{__html: svg}} /><td
-        style={style}
+        style={stylen}
         dangerouslySetInnerHTML={{__html: svg}} />
       </div>
     </div>

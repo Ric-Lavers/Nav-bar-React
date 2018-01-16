@@ -4,6 +4,7 @@ import NavMenu from './NavMenu';
 import LoginButton from './LoginButton'
 import {TweenMax, Power2, TimelineLite, SlowMo, TimelineMax} from "gsap";
 
+
 // function countdown(time, steps) {//time is total seconds taken and interval is percent per step
 // let i = 1;
 // let interval = steps/time;
@@ -48,6 +49,7 @@ export default class NavBar extends React.Component{
 
     // _flyUp(".ani", 3)
 
+    */
     console.log("componentDidMount");
 
     const tl = new TimelineMax({ repeat:-1, yoyo:true, repeatDelay:0.5});
@@ -65,7 +67,8 @@ navigator.geolocation.getCurrentPosition(position => {
 // ____________
 
 const battery = navigator.getBattery().then(battery => {
-  console.log(battery.level, battery.dischargingTime);
+  console.log("battery.level",battery.level, battery.dischargingTime);
+  this.setState({battery:battery.level} )
   return battery.level, battery.dischargingTime
 })
 // ____________
@@ -82,6 +85,7 @@ Notification.requestPermission(permission => {
   }
 })
 // ____________
+
 const ac = new AudioContext();
 const oscillator = ac.createOscillator();
 
@@ -101,7 +105,6 @@ oscillator.stop(ac.currentTime + 1);
 //   videoElement,srcObject = strem;
 //   const recorder = new MediaRecorder(stream);
 // });
-*/
 }//componentDidMount
 
 
@@ -110,7 +113,7 @@ oscillator.stop(ac.currentTime + 1);
         <div className="nav-bar">
 
           <NavMenu id="nav-menu" />
-
+          <h3>{this.state.battery}</h3>
           <a href="#"><img id="almost-anything" onClick={this.handleClick}src={logo} alt="company logo" className= "ani main-logo"/> </a>
           <div className="green animate" style={{width:50,height:50, backgroundColor:"green"}}></div>
           <div className="red animate" style={{width:50,height:50, backgroundColor:"red"}}></div>
