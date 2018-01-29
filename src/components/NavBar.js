@@ -2,7 +2,11 @@ import React from 'react';
 import logo from '../images/aa_LOGO.png';
 import NavMenu from './NavMenu';
 import LoginButton from './LoginButton'
-import {TweenMax, Power2, TimelineLite, SlowMo, TimelineMax} from "gsap";
+// import {TweenMax, SlowMo, TimelineMax} from "gsap";
+import {Link} from 'react-router-dom';
+import Battery from './svg/Battery'
+import KeyContacts from './portfolio/KeyContacts'
+
 
 
 // function countdown(time, steps) {//time is total seconds taken and interval is percent per step
@@ -27,7 +31,9 @@ export default class NavBar extends React.Component{
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      battery:null
+    };
     console.log("ANYTHING");
   }
 
@@ -45,11 +51,9 @@ export default class NavBar extends React.Component{
       })
     }
 
-    // TweenMax.staggerFrom( ".ani", 1, {opacity:0.2,x:200, backgroundColor:"blue", ease: SlowMo.ease.config(0.7, 0.7, false)} );
-
     // _flyUp(".ani", 3)
 
-    */
+   TweenMax.staggerFrom( ".ani", 1, {opacity:0.2,x:200, backgroundColor:"blue", ease: SlowMo.ease.config(0.7, 0.7, false)} );
     console.log("componentDidMount");
 
     const tl = new TimelineMax({ repeat:-1, yoyo:true, repeatDelay:0.5});
@@ -58,18 +62,24 @@ export default class NavBar extends React.Component{
     tl.fromTo(".red", 2, { scale:1.2} ,{y:300,x:100, scale:0.5, ease: SlowMo.ease.config(0.7, 0.7, false)}, "burst");
     tl.to(".powderblue", 2, {y:300, ease: TweenMax.SlowMo.ease.config(0.7, 0.7, false)}, "burst-=1");
 
-    tl.timeScale(.90);
+    tl.timeScale(.90);*/
 // ____________https://www.youtube.com/watch?v=qaxG4-b_VyI
 
 navigator.geolocation.getCurrentPosition(position => {
   console.log(`These are you coords: `, position.coords.latitude,  position.coords.longitude);
+
+navigator.getBattery().then(function(battery) {
+  battery.onlevelchange = function() {
+    this.setState({battery:{level:this.level,dischargingTime:this.dischargingTime} } );
+  };
+});
 });
 // ____________
 
+
+
 const battery = navigator.getBattery().then(battery => {
-  console.log("battery.level",battery.level, battery.dischargingTime);
-  this.setState({battery:battery.level} )
-  return battery.level, battery.dischargingTime
+  this.setState({battery:{level:battery.level,dischargingTime:battery.dischargingTime} } );
 })
 // ____________
 Notification.requestPermission(permission => {
@@ -109,17 +119,19 @@ oscillator.stop(ac.currentTime + 1);
 
 
   render(){
+  const level = () => {if (this.state.battery) {return this.state.battery.level}else{return "pending"}}
     return(
         <div className="nav-bar">
-
           <NavMenu id="nav-menu" />
-          <h3>{this.state.battery}</h3>
-          <a href="#"><img id="almost-anything" onClick={this.handleClick}src={logo} alt="company logo" className= "ani main-logo"/> </a>
-          <div className="green animate" style={{width:50,height:50, backgroundColor:"green"}}></div>
+          <Battery charge = {level()} />
+          <KeyContacts/>
+          <Link className="main-logo" to="/">
+            <img id="almost-anything" onClick={this.handleClick}src={logo} alt="company logo" className= "ani"/>
+          </Link>
+          {/*<div className="green animate" style={{width:50,height:50, backgroundColor:"green"}}></div>
           <div className="red animate" style={{width:50,height:50, backgroundColor:"red"}}></div>
-          <div className="powderblue animate" style={{width:50,height:50, backgroundColor:"powderblue"}}></div>
+          <div className="powderblue animate" style={{width:50,height:50, backgroundColor:"powderblue"}}></div>*/}
           <LoginButton className="login-button"/>
-
         </div>
     )}
 }

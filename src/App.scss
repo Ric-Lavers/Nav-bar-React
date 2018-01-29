@@ -13,8 +13,13 @@ h6{
   padding: 20px;
   color: white;
 }
+.battery{
+  margin-bottom: 8px;
+  margin-left: 32px;
+}
 
 .nav-bar{
+  width: 100%;
   display: flex;
   justify-content:space-between;
   align-items: center;
@@ -22,10 +27,27 @@ h6{
   height: 60px;
   background-color: #E0DCD2;
   overflow: visible;
+  position: relative;
+  z-index: 10000;
+  .key-contacts{
+    display: flex;
+    margin-right: 32px;
+    .icon-link{
+      .icon{
+        height:50px !important; width: 50px !important;
+        margin-left: 32px;
+      }
+    }
+  }
 
   .main-logo{
+    position: fixed;
+    text-align: center;
+    width: 100%;
+  }
+  .main-logo img{
     height:60px;
-
+    align-self: center;
   }
   .glow{
     box-shadow: 8px 8px 12px rgba(yellow,0.5) inset, 8px 8px 12px rgba(yellow, 0.6);
@@ -164,7 +186,7 @@ svg{
   // max-width:500px;
   display:grid;
   grid-gap: 6px;
-  grid-template-columns: repeat(9, 80px);
+  grid-template-columns: repeat(10, 80px);
   grid-template-rows: 2fr, 1fr;
   p{
     text-align: center

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
+import Portfolio from './components/portfolio/Portfolio'
 import mainLogo from './images/aa_LOGO.png';
 import Audio from 'react-audioplayer';
 import playlist from './playlist.json'
 // import AudioPlayer from './AudioPlayer'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import StringArtGenerator from './components/Body'
 
 
@@ -23,9 +24,10 @@ class App extends Component {
       <Router>
          <div>
          <NavBar logo={mainLogo} />
+         <Route  exact path="/" component={Portfolio}/>
          <Route  path="/svg" component={StringArtGenerator} />
          <Route  path="/svg" component={StringArtGenerator} />
-          <Route  path="/audio" render={
+         <Route  path="/audio" render={
             () =>(
             <div>
             <Audio
