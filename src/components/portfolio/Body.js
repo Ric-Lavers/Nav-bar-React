@@ -1,8 +1,11 @@
 import React from 'react'
+import AboutMe from './AboutMe'
 
 const Body = (props) => {
   return (
-    <div />
+    <div className="body">
+      <AboutMe/>
+    </div>
   )
 }
 

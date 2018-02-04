@@ -11,11 +11,17 @@ import StringArtGenerator from './components/Body'
 
 
 class App extends Component {
-  state = {};
+  state = {
+    menuOpen:false
+  };
   componentDidMount(){
     console.log("navigator: ", navigator.userAgent)
   }
 
+  handleMenuOpen = (bool) =>{
+    bool?this.setState({menuOpen: false} ):this.setState({menuOpen: true} )
+    console.log(this.state.menuOpen);
+  }
 
  // build a NavBar that contains - Menu - Login - title
   render() {
@@ -23,8 +29,10 @@ class App extends Component {
     return (
       <Router>
          <div>
-         <NavBar logo={mainLogo} />
-         <Route  exact path="/" component={Portfolio}/>
+         <NavBar logo={mainLogo} handleMenuOpen={this.handleMenuOpen}/>
+         <Route  exact path="/" render={()=>
+             <Portfolio titleMargin={this.state.menuOpen}/>
+           }/>
          <Route  path="/svg" component={StringArtGenerator} />
          <Route  path="/svg" component={StringArtGenerator} />
          <Route  path="/audio" render={

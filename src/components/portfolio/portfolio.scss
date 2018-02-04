@@ -16,18 +16,28 @@ body{
   // margin-top: 50px !important;
   width:100%;
   background-color: $paleGold;
-  min-height: 40vh;
+  height: 45vh;
   display: flex;
   position: relative;
   .title{
     margin-left: 30px;
     font-size: 1.2em;
+    transition: all 1s;
+  }
+  ._30{margin-left: 30px; transition:all 1.2s}
+  ._60{margin-left: 60px; transition:all 1.2s}
+  ._90{margin-left: 90px; transition:all 1.2s}
+  ._0{margin-left: 0px!important; transition:all 1.2s }
+  .make-room{
+    margin-left: 180px;
+    transition: all 1s;
   }
   #face{
     position: absolute;
     right:0;
-    height: 45vh;
+    height: 50vh;
     filter: grayscale(100%);
+    transition: all 0.8s;
   }
   #face:hover{
     filter: grayscale(0%);
@@ -35,7 +45,74 @@ body{
   }
 }//opening
 
+//body
+.about-section{
+  width:calc(100%-32px);
+  min-height: 60vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  // grid-auto-rows: 60px ;
+  grid-column-gap: 16px;
+  grid-gap:6px;
 
+  margin:16px;
+
+}
+.about-title, .about-para{
+  color:white;
+  background-color: black;
+  // border:2px solid white;
+  border-radius:12px;
+  padding:8px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-title{
+  margin: 0 6px 6px;
+  height:60px;
+  cursor: pointer;
+  text-align: center;
+  width:90%;
+  border:0px solid black;
+
+  transition: all 0.5s;
+}
+.about-title:active{
+  text-align: left;
+  width:140%;
+  border:2px solid black;
+
+  transition: all ease-out 0.2s;
+}
+.about-para{
+  height:80%;
+  // grid-column: 2 ;
+  // grid-row: 1 / span 5;
+  -webkit-clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
+  clip-path: polygon(0 0%, 100% 0%, 100% 90%, 0 100%);
+}
+.about-education{
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap:32px;
+  .education-logo-container{
+    display:flex;
+    justify-content:center;
+    .education-logo{
+      align-self: center;
+      text-align: center;
+      height:50px;
+    }
+  }
+}
+.about-skills img{
+  height:40px !important;
+  width:40px !important;
+  margin:6px;
+}
+
+//____________
  .my-sections:first-child{
    margin-top: -3px;
  }

@@ -5,7 +5,7 @@ const linkedin = require("../images/portfolio/logos/linkedin-logo-sq.svg")
 
 const KeyContacts = (props) => {
   return (
-    <div class="key-contacts">
+    <div className="key-contacts">
       <a className="icon-link" href="https://github.com/ric-lavers" target="_blank" rel='noreferrer noopener'>
           <img className="icon" src={github} alt="github"/>
       </a>

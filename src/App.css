@@ -34,7 +34,7 @@ h6 {
       width: 50px !important;
       margin-left: 32px; }
   .nav-bar .main-logo {
-    position: fixed;
+    position: relative;
     text-align: center;
     width: 100%; }
   .nav-bar .main-logo img {
@@ -65,11 +65,21 @@ h6 {
     border-radius: 0 0 12px 12px;
     border: 8.5px solid black;
     border-top: 0px; }
+  .nav-bar .none {
+    display: none; }
   .nav-bar .hide {
     height: 0px;
     opacity: 0;
     color: transparent;
+    animation: hideToNone 1s;
     transition: opacity 1.0s,height 0.5s; }
+
+@keyframes hideToNone {
+  10% { }
+  90% {
+    display: block; }
+  100% {
+    display: none; } }
   .nav-bar .show {
     color: black;
     height: 150px;

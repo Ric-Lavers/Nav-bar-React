@@ -41,7 +41,7 @@ h6{
   }
 
   .main-logo{
-    position: fixed;
+    position:relative;
     text-align: center;
     width: 100%;
   }
@@ -79,21 +79,33 @@ h6{
     border-top: 0px;
   }
 
-
+.none{
+  display: none;
+}
   .hide{
     // display: none;
     height: 0px;
     opacity: 0;
     color:transparent;
-
+    animation: hideToNone 1s;
     transition:  opacity 1.0s,height 0.5s;
   }
+  @keyframes hideToNone {
+    10%{
+    }
+    90%{
+      display:block;
+    }
+    100%{
+      display:none;
+    }
+  }
+
   .show{
     // display:block;
     color:black;
     height:150px;
     opacity: 1;
-
     transition: color 1.2s,opacity 1s,height 1s;
   }
   .dropdown-list{

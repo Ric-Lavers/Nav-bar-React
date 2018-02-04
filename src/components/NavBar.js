@@ -7,37 +7,21 @@ import {Link} from 'react-router-dom';
 import Battery from './svg/Battery'
 import KeyContacts from './portfolio/KeyContacts'
 
-
-
-// function countdown(time, steps) {//time is total seconds taken and interval is percent per step
-// let i = 1;
-// let interval = steps/time;
-// let percent = 1/steps;
-// setInterval( () => {
-//   while (i >0) {
-//     logo.style.opacity = `${i}`;
-//     i-=steps
-//     console.log("i: "+ i);
-//   }
-// },Math.floor(interval*1000) )
-// }
-
-/* practive animations
-<div className="ani" style={{width:50,height:50, backgroundColor:"red"}}></div>
-<div className="ani" style={{width:50,height:50, backgroundColor:"red"}}></div>
-<div className="ani" style={{width:50,height:50, backgroundColor:"red"}}></div>
-*/
 export default class NavBar extends React.Component{
 
   constructor(props) {
     super(props);
     this.state = {
-      battery:null
+      battery:{showTime:false},
+      moreBattery:{display:'none'}
     };
-    console.log("ANYTHING");
   }
 
-  componentDidMount(){/*
+  componentDidMount(){
+    window.addEventListener("resize", function(){
+        console.log( "resize" )
+    });
+    /*
     let logo = document.getElementById("almost-anything");
     let burger = document.getElementById("nav-menu");
     function _flyDown(element,amount) {
@@ -67,63 +51,76 @@ export default class NavBar extends React.Component{
 
 navigator.geolocation.getCurrentPosition(position => {
   console.log(`These are you coords: `, position.coords.latitude,  position.coords.longitude);
+});
+/*
+  navigator.getBattery().then(function(battery) {
 
-navigator.getBattery().then(function(battery) {
-  battery.onlevelchange = function() {
-    this.setState({battery:{level:this.level,dischargingTime:this.dischargingTime} } );
+  const newBat =  battery.addEventListener('levelchange', ()=>{
+      alert(battery);
+      console.log( "battery", battery )
+      battery.level = battery.level
+      battery.dischargingTime = battery.dischargingTime
+      return battery
+    })
+  console.log( "newBat", newBat )
+  // this.setState( {battery: newBat} )
+
+  //   battery.onlevelchange = function() {
+  //     this.setState({battery:{level:this.level,dischargingTime:this.dischargingTime} } );
+  //   };
+  });*/
+// ____________
+  const battery = navigator.getBattery().then(battery => {
+    this.setState({battery:{level:battery.level,dischargingTime:battery.dischargingTime} } );
+  })
+
+  navigator.getBattery().then( (battery) =>{
+  battery.onlevelchange = () => {
+    console.log( "this.level", battery.level,battery.dischargingTime )
+    this.setState( {battery: {level:battery.level,dischargingTime:battery.dischargingTime} } );
   };
 });
-});
 // ____________
-
-
-
-const battery = navigator.getBattery().then(battery => {
-  this.setState({battery:{level:battery.level,dischargingTime:battery.dischargingTime} } );
-})
-// ____________
-Notification.requestPermission(permission => {
-
-  if(permission === 'granted'){
-    navigator.getBattery().then(battery => {
-      function checkplug(battery) {
-        return battery.dischargingTime == "Infinity"?(`full in ${battery.chargingTime/60} mins`):( `empty in ${battery.dischargingTime/60} mins`)
-      }
-      const notification = new Notification("hello NEO", {body: `Battery is ${battery.level*100} % and will be ${checkplug(battery)}`}  )
-    })
-
-  }
-})
-// ____________
-
-const ac = new AudioContext();
-const oscillator = ac.createOscillator();
-
-oscillator.frequency.value = 200;
-oscillator.type = 'sine';
-oscillator.start(ac.currentTime);
-// oscillator.connect(ac.destination)
-oscillator.stop(ac.currentTime + 1);
-
-
-
-// ____________
-// navigator.mediaDevices.getUserMedia({
-//   video:true,
-//   audio:true
-// }).then( stream => {
-//   videoElement,srcObject = strem;
-//   const recorder = new MediaRecorder(stream);
-// });
+  Notification.requestPermission(permission => {
+    if(permission === 'granted'){
+      navigator.getBattery().then(battery => {
+        function checkplug(battery) {
+          return battery.dischargingTime == "Infinity"?(`full in ${battery.chargingTime/60} mins`):( `empty in ${battery.dischargingTime/60} mins`)
+        }
+        const notification = new Notification("hello NEO", {body: `Battery is ${battery.level*100} % and will be ${checkplug(battery)}`}  )
+      })
+    }
+  })
 }//componentDidMount
 
+showBatteryTime = ()=>{
+  const temp = this.state.battery
+  temp.showTime = !this.state.battery.showTime
+  this.setState( {temp} )
+}
+  handleMoreInfo =() => {
+    console.log("this.state.battery.moreBattery");
+    this.state.battery.moreBattery === {display:'none'} ?
+    this.setState( {moreBattery:{display:'block'}} ):
+    this.setState( {moreBattery:{display:'none'}} )
+  }
+  onBatteryClick = ()=>{
+    window.location.reload()
+  }
 
   render(){
   const level = () => {if (this.state.battery) {return this.state.battery.level}else{return "pending"}}
     return(
         <div className="nav-bar">
-          <NavMenu id="nav-menu" />
-          <Battery charge = {level()} />
+          <NavMenu id="nav-menu" handleMenuOpen={this.props.handleMenuOpen}/>
+          <div style={{ height:40, width:80 }}>
+            <Battery
+              onClick= {this.onBatteryClick}
+              charge = {level()}
+              battery={this.state.battery}
+              moreInfo={this.state.moreBattery}
+              />
+          </div>
           <KeyContacts/>
           <Link className="main-logo" to="/">
             <img id="almost-anything" onClick={this.handleClick}src={logo} alt="company logo" className= "ani"/>
