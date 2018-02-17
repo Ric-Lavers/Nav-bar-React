@@ -81,16 +81,16 @@ navigator.geolocation.getCurrentPosition(position => {
   };
 });
 // ____________
-  Notification.requestPermission(permission => {
-    if(permission === 'granted'){
-      navigator.getBattery().then(battery => {
-        function checkplug(battery) {
-          return battery.dischargingTime == "Infinity"?(`full in ${battery.chargingTime/60} mins`):( `empty in ${battery.dischargingTime/60} mins`)
-        }
-        const notification = new Notification("hello NEO", {body: `Battery is ${battery.level*100} % and will be ${checkplug(battery)}`}  )
-      })
-    }
-  })
+  // Notification.requestPermission(permission => {
+  //   if(permission === 'granted'){
+  //     navigator.getBattery().then(battery => {
+  //       function checkplug(battery) {
+  //         return battery.dischargingTime == "Infinity"?(`full in ${battery.chargingTime/60} mins`):( `empty in ${battery.dischargingTime/60} mins`)
+  //       }
+  //       const notification = new Notification("hello NEO", {body: `Battery is ${battery.level*100} % and will be ${checkplug(battery)}`}  )
+  //     })
+  //   }
+  // })
 }//componentDidMount
 
 showBatteryTime = ()=>{
