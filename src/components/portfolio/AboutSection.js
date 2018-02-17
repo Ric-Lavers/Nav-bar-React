@@ -16,7 +16,7 @@ const About = () => {
        <p>When I'm not writing code I might be planning a Event, making electronic music, or reading sci-fi at the beach.</p>
        <p>My road to development has taken me through two degrees, three businesses, and a heap of stories but with development I've found something challenging and satisfying.
        </p>
-       <p>If your looking for a resume please
+       <p>If your looking for a resume please send  me a email, but whilst your here have play with my svg generator!
        </p>
     </div>
   )
