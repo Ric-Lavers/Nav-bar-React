@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Polypoint from './models/polypointJSON'
 import Controls from './svgControls'
@@ -223,14 +224,14 @@ export default class ControlManager extends React.Component {
         <div className="rotate-contol-container" >
 
 
-              <TwitterPicker
-                className="slider-picker"
-                color={
-                  this.state.toggleColor?
-                  this.state.fillColor:
-                  this.state.strokeColor  }
-                onChange={ this.handleChangeBackgroundColor }
-                />
+        <TwitterPicker
+          className="slider-picker"
+          color={
+            this.state.toggleColor?
+            this.state.fillColor:
+            this.state.strokeColor  }
+          onChange={ this.handleChangeBackgroundColor }
+          />
 
         </div>
 

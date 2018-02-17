@@ -1,6 +1,7 @@
 import React from 'react'
+
 import AboutTitle from './AboutTitle'
-import AboutPara from './AboutPara'
+// import AboutPara from './AboutPara'
 
 import Ait from '../images/portfolio/AIT_LOGO.png'
 import Uc from '../images/portfolio/uc_logo.png'
@@ -10,10 +11,12 @@ import * as logos from '../images/portfolio/logos/index'
 
 const About = () => {
   return (
-    <div>
-       <p>I'm a full stack Junior developer based in Sydney, Australia.</p>
-       <p>When I'm not writing code I might be planning a Event, making some music, or reading sci-fi.</p>
-       <p>My road to development has taken me through two degrees, three businesses, and a heap of stories but with development I've found something I really like.
+    <div className="about-bio">
+       <p>Today I'm a full stack Junior developer based in Sydney, Australia.</p>
+       <p>When I'm not writing code I might be planning a Event, making electronic music, or reading sci-fi at the beach.</p>
+       <p>My road to development has taken me through two degrees, three businesses, and a heap of stories but with development I've found something challenging and satisfying.
+       </p>
+       <p>If your looking for a resume please
        </p>
     </div>
   )
@@ -47,9 +50,13 @@ const Skills = () => {
     const skills = Object.keys(logos)
     skills.forEach( ( logo ) =>{
       skillLogos.push (
+      <div className="skills" key = {`skills_${logo}`}className="tooltip">
         <img
-          style={{height:40, width:40}}
-        src={logos[logo]} alt={`${logo}`} title={`${logo}`}/>
+          style={{height:50, width:50}}
+          src={logos[logo]} alt={`${logo}`}
+        />
+      <span className="tooltiptext">{`${logo}`}</span>
+      </div>
       )
     })
 
@@ -60,47 +67,67 @@ const Skills = () => {
   )
 }
 
-const active = [<About/>, <Education/>, <Skills/>]
-
+const Content = [<div/>,<About/>, <Education/>, <Skills/>,<div/>]
 
 
 const AboutSection = (props) => {
-
+  const titles = ["about","education","skills","contact"]
+  let aboutTitles = []
   let array = []
   for (let i = 0; i < 4; i++) {
     if(props.partOpen === i){array[i]= true;}
     else{array[i]= false;}
+
+    aboutTitles.push( <AboutTitle
+      key = {i}
+      active= {array[i+1]}
+      handleClick={props.handleClick}
+      title={titles[i]}
+      />)
+    
   }
 
   return (
     <div className="about-section">
       <div>
+
         <AboutTitle
+          active= {array[1]}
           handleClick={props.handleClick}
           title="about"/>
         <AboutTitle
+          active= {array[2]}
           handleClick={props.handleClick}
           title="education"/>
         <AboutTitle
+          active= {array[3]}
           handleClick={props.handleClick}
           title="skills"/>
-        <AboutTitle
+        <a style={{textDecoration:"none"}} href="mailto:ric_lavers@outlook.com?&body=Hello Ric, ">
+          <label onClick={props.handleClick} >  
+              <div
+              className={`about-title ${array[4]}`}
+              title="contact">
+                <span
+                onClick={props.handleClick}
+                title="contact"
+                style={{ userSelect:'none' }}>
+                contact
+                </span>
+              </div>
+          </label>
+        </a>
+        {/*<AboutTitle
+          active= {array[4]}
           handleClick={props.handleClick}
-          title="contact"/>
+        title="contact"/>*/}
       </div>
       <div>
-        <AboutPara
-          active= {array[1]}
-          content={<About/>}/>
-        <AboutPara
-          active= {array[2]}
-          content={<Education/>}/>
-        <AboutPara
-          active= {array[3]}
-          content={<Skills/>}/>
-        <AboutPara
-          active= {array[4]}
-          content="content"/>
+        {<div className={`about-para ${props.partOpen === 4||props.partOpen === 0?"hide":""}`}>
+          <div className={`about-content ${props.partOpen === 0?"hide":""}`}>
+            {Content[props.partOpen]}
+          </div>
+        </div>}
       </div>
 
   </div>)

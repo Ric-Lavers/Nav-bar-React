@@ -5,9 +5,12 @@ import Portfolio from './components/portfolio/Portfolio'
 import mainLogo from './images/aa_LOGO.png';
 import Audio from 'react-audioplayer';
 import playlist from './playlist.json'
+import Footer from './components/Footer'
 // import AudioPlayer from './AudioPlayer'
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import StringArtGenerator from './components/Body'
+
+import ScratchPage from './components/pages/Scratch'
 
 
 class App extends Component {
@@ -34,6 +37,7 @@ class App extends Component {
              <Portfolio titleMargin={this.state.menuOpen}/>
            }/>
          <Route  path="/svg" component={StringArtGenerator} />
+         <Route path="/scatch" component={ScratchPage}/>
          <Route  path="/svg" component={StringArtGenerator} />
          <Route  path="/audio" render={
             () =>(
@@ -50,8 +54,9 @@ class App extends Component {
           )
           }/>
 
-
+        <Footer/>
       </div>
+
     </Router>
     )
   }

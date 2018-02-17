@@ -76,21 +76,72 @@ body{
   width:90%;
   border:0px solid black;
 
-  transition: all 0.5s;
+  transition: all 0.5s 0.3s;
 }
-.about-title:active{
+.active{
   text-align: left;
   width:140%;
   border:2px solid black;
-
   transition: all ease-out 0.2s;
+}
+.about-skills{
 }
 .about-para{
   height:80%;
-  // grid-column: 2 ;
-  // grid-row: 1 / span 5;
+  padding:32px 32px;
   -webkit-clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
   clip-path: polygon(0 0%, 100% 0%, 100% 90%, 0 100%);
+  .about-content{
+    height:100%;
+    // display: none;//!!!!!
+    transition: fadein ease-out 1.6s;
+    // animation: fadein 1.6s;
+  }
+  // transition: slidein ease-out 1.2s;
+  animation: slidein ease-out 0.8s;
+}
+.hide{
+  // display:none;
+  opacity: 0.001;
+  width:0%;
+  height:0%;
+  transition: opacity .1s 0.4s;
+  animation: slideout ease-in 0.4s;
+}
+@keyframes slidein {
+    from {
+      width: 0%;
+     }
+    to   {
+      width:  90%;
+     }
+}
+@keyframes slideout {
+  from {
+    height:100%;
+    width: 90%;
+   }
+  to   {
+    height:0%;
+    width:  0%;
+   }
+}
+@keyframes fadein {
+    0%{
+      opacity: 0;
+     }
+    40%{
+      opacity: 0;
+     }
+    70%{
+      opacity: 1;
+     }
+}
+
+
+
+.about-bio{
+  font-size:1.2em;
 }
 .about-education{
   display: grid;
@@ -110,6 +161,35 @@ body{
   height:40px !important;
   width:40px !important;
   margin:6px;
+}
+.about-skills{
+  padding-bottom:50px;
+}
+.tooltip{
+  position: relative;
+  display: inline-block;
+}
+.tooltiptext{
+  position:absolute;
+  visibility: hidden;
+  padding: 5px 3px;
+  border-radius: 6px;
+  // background-color: #555;
+  background-color: $paleGold;
+  color: #fff;
+
+  z-index: 1;
+  bottom: -50%;
+  left: 50%;
+  // margin-left: -60px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
 
 //____________

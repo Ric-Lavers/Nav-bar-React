@@ -35,8 +35,6 @@ h6 {
   z-index: 10000; }
   .nav-bar .key-contacts {
     display: flex;
-    justify-content: space-around;
-    margin-left: 2em;
     margin-right: 32px; }
     .nav-bar .key-contacts .icon-link .icon {
       height: 50px !important;

@@ -16,9 +16,12 @@ class AboutMe extends React.Component {
   }
 
   handlePartButtonClick = (event) => {
-    console.log(event.target.title);
     let clickedButton = event.target.title.toUpperCase();
-    this.setState({ partActive: PartsEnum[clickedButton] });
+
+    PartsEnum[clickedButton] !== this.state.partActive?
+      this.setState({ partActive: PartsEnum[clickedButton] }):
+      this.setState({ partActive: PartsEnum[ "NONE"] })
+      
   }
 
   render (){

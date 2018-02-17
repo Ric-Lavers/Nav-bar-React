@@ -1,4 +1,5 @@
 import React from 'react';
+
 //
 // export default class SignUpForm extends React.Component {
 //
@@ -39,7 +40,7 @@ export default function SignUpForm(
   ) {
 
   return(
-    <div>
+    <div className="sign-up-form">
       <form onSubmit = {handleSubmit}>
         <label>  <input type="text" placeholder="firstName"/> </label><br/>
         <label> <input type="text" placeholder="lastName"/> </label><br/>

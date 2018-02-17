@@ -61,7 +61,9 @@
     "start-js": "node scripts/start.js",
     "build-js": "node scripts/build.js",
     "test_": "node scripts/test.js --env=jsdom",
-    "test": "NODE_ENV= mocha './src/**/*.spec.js' --recursive --compilers js:babel-core/register"
+    "test": "NODE_ENV= mocha './src/**/*.spec.js' --recursive --compilers js:babel-core/register",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -108,6 +110,10 @@
   "devDependencies": {
     "expect": "^22.0.3",
     "mocha": "^4.1.0",
-    "react-addons-test-utils": "^15.6.2"
+    "react-addons-test-utils": "^15.6.2",
+    "@storybook/react": "^3.3.13",
+    "@storybook/addon-actions": "^3.3.13",
+    "@storybook/addon-links": "^3.3.13",
+    "@storybook/addons": "^3.3.13"
   }
 }

@@ -1,14 +1,24 @@
 import React from 'react'
 
 const AboutTitle = (props) => {
+  // console.log(props.title,'props.active', props.active )
+  let active = props.active?" active":""
   return (
-    <div
-      onClick={props.handleClick}
-      className={`about-title`}
-      title={ props.title }
-      >
-      <span>{ props.title }</span>
-    </div>
+    <label
+      href="mailto:ric_lavers@outlook.com"
+      onClick={props.handleClick} >
+      <div
+        className={`about-title ${active}`}
+        title={ props.title }
+        >
+        <span
+          onClick={props.handleClick}
+          title={ props.title }
+          style={{ userSelect:'none' }}>
+          { props.title }
+        </span>
+      </div>
+    </label>
   )
 }
 
