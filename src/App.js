@@ -7,7 +7,7 @@ import Audio from 'react-audioplayer';
 import playlist from './playlist.json'
 import Footer from './components/Footer'
 // import AudioPlayer from './AudioPlayer'
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {HashRouter as Router, Route} from 'react-router-dom';
 import StringArtGenerator from './components/Body'
 
 import ScratchPage from './components/pages/Scratch'
