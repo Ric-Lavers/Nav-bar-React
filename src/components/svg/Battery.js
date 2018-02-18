@@ -7,7 +7,6 @@ const Battery = (props) => {
 
   const charge = () => {
     if ( isNaN(props.charge) ) {
-
       return {size:81, color:"grey", charge:"?"}
     }else{
       let obj = {}

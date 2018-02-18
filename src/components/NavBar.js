@@ -12,7 +12,7 @@ export default class NavBar extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      battery:{showTime:false},
+      battery:null,
       moreBattery:{display:'none'}
     };
   }
@@ -49,9 +49,9 @@ export default class NavBar extends React.Component{
     tl.timeScale(.90);*/
 // ____________https://www.youtube.com/watch?v=qaxG4-b_VyI
 
-navigator.geolocation.getCurrentPosition(position => {
-  console.log(`These are you coords: `, position.coords.latitude,  position.coords.longitude);
-});
+// navigator.geolocation.getCurrentPosition(position => {
+//   console.log(`These are you coords: `, position.coords.latitude,  position.coords.longitude);
+// });
 /*
   navigator.getBattery().then(function(battery) {
 
@@ -70,16 +70,17 @@ navigator.geolocation.getCurrentPosition(position => {
   //   };
   });*/
 // ____________
-  const battery = navigator.getBattery().then(battery => {
-    this.setState({battery:{level:battery.level,dischargingTime:battery.dischargingTime} } );
-  })
-
-  navigator.getBattery().then( (battery) =>{
-  battery.onlevelchange = () => {
-    console.log( "this.level", battery.level,battery.dischargingTime )
-    this.setState( {battery: {level:battery.level,dischargingTime:battery.dischargingTime} } );
-  };
-});
+// Only works on chrome, used to work in firefox but they removed it at version 52
+if(navigator.userAgent.indexOf("Chrome") != -1){
+    const battery = navigator.getBattery().then(battery => {
+      this.setState({battery:{level:battery.level,dischargingTime:battery.dischargingTime} } );
+    })
+    navigator.getBattery().then( (battery) =>{
+    battery.onlevelchange = () => {
+      this.setState( {battery: {level:battery.level,dischargingTime:battery.dischargingTime} } );
+    };
+  });
+} 
 // ____________
   // Notification.requestPermission(permission => {
   //   if(permission === 'granted'){
@@ -114,12 +115,12 @@ showBatteryTime = ()=>{
         <div className="nav-bar">
           <NavMenu id="nav-menu" handleMenuOpen={this.props.handleMenuOpen}/>
           <div style={{ height:40, width:80 }}>
-            <Battery
+           {this.state.battery && <Battery
               onClick= {this.onBatteryClick}
               charge = {level()}
               battery={this.state.battery}
               moreInfo={this.state.moreBattery}
-              />
+              />}
           </div>
           <KeyContacts/>
           <Link className="main-logo" to="/">
