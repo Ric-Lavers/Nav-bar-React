@@ -12,18 +12,18 @@ export default class ControlManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sides:4,
-      steps:4,
+      sides:8,
+      steps:8,
       width:400,
       height:400,
       layered:true,
-      opacity:0.5,
-      strokeWidth:4,
-      fillColor:{r: 255, g: 210, b: 245, a: 0.2},
-      strokeColor:{r: 0, g: 0, b: 245, a: 1},
+      opacity:0.2,
+      strokeWidth:1,
+      fillColor:{r: 230, g: 210, b: 179, a: 0.2},
+      strokeColor:{r:77 , g: 57, b: 25, a: 1},
       toggleColor:true,
       rotate:0,
-      backgroundColor:{r: 100, g: 100, b: 245, a: 1}
+      backgroundColor:{r: 155, g: 208, b: 248, a: 1}
     };
 
   }
