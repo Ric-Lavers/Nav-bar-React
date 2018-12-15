@@ -6,6 +6,7 @@ import mainLogo from './images/aa_LOGO.png';
 import Audio from 'react-audioplayer';
 import playlist from './playlist.json'
 import Footer from './components/Footer'
+import Draw from "./components/svg/draw/FullScreenSVG.jsx";
 // import AudioPlayer from './AudioPlayer'
 import {HashRouter as Router, Route} from 'react-router-dom';
 import StringArtGenerator from './components/Body'
@@ -39,6 +40,7 @@ class App extends Component {
          <Route  path="/svg" component={StringArtGenerator} />
          <Route path="/scatch" component={ScratchPage}/>
          <Route  path="/svg" component={StringArtGenerator} />
+         <Route  path="/draw" component={Draw} />
          <Route  path="/audio" render={
             () =>(
             <div>
