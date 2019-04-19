@@ -1,7 +1,7 @@
 import React from 'react'
 
 const AboutTitle = (props) => {
-  // console.log(props.title,'props.active', props.active )
+  
   let active = props.active?" active":""
   return (
     <label

@@ -1,0 +1,9 @@
+.controls {
+  position: fixed;
+  bottom: 15;
+  left: 25;
+  text-align: "left";
+  font-size: 0.6em;
+  background-color: #111;
+  color: pink;
+  cursor: pointer; }

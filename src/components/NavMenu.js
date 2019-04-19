@@ -61,6 +61,7 @@ export default class NavMenu extends React.Component{
           <div className = {`dropdown-menu ${this.state.menu}`}>
             <ul className={`dropdown-list ${this.state.menu}`}>
               <li><Link to='/svg'>svg</Link></li>
+              <li><Link to='/draw'>draw</Link></li>
               <li><Link to='/'>home</Link></li>
             </ul>
           </div>

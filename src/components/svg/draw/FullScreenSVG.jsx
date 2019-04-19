@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from 'react'
+
 import { DrawModes, preventKeys, findIntervals } from './hanger'
+
+import ControlTable from './components/ControlsTable'
 
 const arrorKeys = [32, 37, 38, 39, 40];
 
+let styles = {}
 
 class FullScreenSVG extends Component {
   constructor(props){
@@ -20,6 +24,8 @@ class FullScreenSVG extends Component {
     innerWidth: 0,
     polylinePoints: [],
     polylinePointsString:[],
+    lastPolylinePointsString:[],
+    lastPolylinePoints: [],
     intervals:8,
     polyline: true,
     blackWhite: "white",
@@ -36,6 +42,7 @@ class FullScreenSVG extends Component {
       return prev
     })
   }
+
   selfDraw = (count, previous = 37) => {
     if( this.state.drawing && count <= 600 )
     setTimeout( async () => {
@@ -44,7 +51,6 @@ class FullScreenSVG extends Component {
       let arrowKey = findArrowKey()
       //dont let the direction go back wards
       while( arrowKey !== previous && ((arrowKey - previous) % 2 === 0) ) {
-        // console.log( "arrowKey", arrowKey)
         arrowKey = findArrowKey()
       }
       //dont go off the edges
@@ -67,7 +73,6 @@ class FullScreenSVG extends Component {
   downloadSVG = () => {
     const XMLS = new XMLSerializer(); 
     const svgDraw = XMLS.serializeToString(this.svgDraw.current)
-    // console.log('svgDraw', svgDraw)
     const el = document.createElement('a')
     el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(svgDraw) );
     el.setAttribute('download', 'stringart.svg');
@@ -106,7 +111,6 @@ class FullScreenSVG extends Component {
 
   handleArrowPress = async (event) => {
 
-    
     if( event.key === 32) event.altKey && event.preventDefault();
 
     const move = (keyCode, clientX, clientY, grid) => {
@@ -132,6 +136,7 @@ class FullScreenSVG extends Component {
 
       let { clientX, clientY, grid } = this.state
       let newEvent = move(event.keyCode, clientX, clientY, grid)
+      return this.handleClick(newEvent)
       
       const dontRepeat = () => {
         // dont repeat //todo
@@ -146,7 +151,6 @@ class FullScreenSVG extends Component {
         down = move( 40, x, y, grid )
 
         const checkIt = (newEvent, x, y, foo) => {
-          // console.log( newEvent, x, y )
           newEvent.used = (newEvent.clientX === x && newEvent.clientY === y)
             ? true
             : false;
@@ -170,6 +174,7 @@ class FullScreenSVG extends Component {
         }
         return clickIt
       }
+
       const clickIt = dontRepeat()
       clickIt <= 4 
         ? this.handleClick(newEvent)
@@ -219,9 +224,8 @@ class FullScreenSVG extends Component {
           next,
           settings
         );
-
-      this.setState(prev => { 
-        prev.polylinePointsString.push(pattern) // doubling it in instesting
+      this.setState(prev => {
+        prev.polylinePointsString.push(pattern) // doubling it in interesting
         prev.clientX = clientX
         prev.clientY = clientY
         return prev
@@ -265,12 +269,9 @@ class FullScreenSVG extends Component {
 
     this.setState({ animationName, pathLength: length })
     let styleSheet2 = document.styleSheets[0];
-    // console.log("getPathLength", styleSheet, styleSheet2)
   }
 
   handleKeyPress = (event) => {
-    console.log("event.key ",event.key)
-    let intervals  = parseInt(event.key)
     event.key === "p" && this.setState({ polyline: !this.state.polyline })
     event.key === "f" && this.setState({ fill: !this.state.fill })
     event.key === "b" && this.setState((prev)=> ({
@@ -278,6 +279,7 @@ class FullScreenSVG extends Component {
         ?"white"
         :"black"
       }))
+
     event.key === "a" && this.getPathLength()
     event.key === "m" && this.setState((prev) => (
       prev.lazerMode === 4
@@ -287,13 +289,16 @@ class FullScreenSVG extends Component {
     event.key === "-" && this.setState({ grid: this.state.grid-50 })
     event.key === "=" && this.setState({ grid: this.state.grid+50 }) 
     event.key === "g" && this.setState({ showBox: !this.state.showBox })
-    let allow = [1,2,3,4,5,6,7,8,9]
-    allow.includes(intervals) && this.setState({ intervals })
+    event.key === 'z' && event.ctrlKey && this.back()
+    
+    let intervals  = parseInt(event.key, 10 );
+    [1,2,3,4,5,6,7,8,9].includes(intervals) && this.setState({ intervals })
   }
+  back = () => this.setState({ polylinePointsString: this.state.polylinePointsString.slice(0,-1) })
 
   render (){
     let { pathLength, animationName, fill, blackWhite, polyline, innerHeight, innerWidth, polylinePoints ,polylinePointsString, animating, 
-    grid, showBox, clientX, clientY 
+    grid, showBox, clientX , clientY 
     } = this.state
     // let pathLength = this.findPathLength()
     let fillColor = fill ? '#111':'none'
@@ -304,23 +309,24 @@ class FullScreenSVG extends Component {
         animation: `${animationName} 4s ease-out alternate infinite`,
         fill:fillColor, stroke:blackWhite, strokeWidth:2
       }:{fill:fillColor, stroke:blackWhite, strokeWidth:2}
-
+    
 
     return( 
       <div style={{ position: 'relative' }}> 
         <div onClick={this.handleClick} >
+
           <svg key={this.k++} ref={this.svgDraw}
-          style={{backgroundColor:'#222', width:'100%', height:'100%'}} 
-          viewBox={`0 0 ${innerWidth} ${innerHeight-30}`} >
-            {/* <polyline points={polylinePoints}
-            style={{fill:"none",stroke:blackWhite,strokeWidth:3}} /> */}
+            style={{backgroundColor:'#222', width:'100%', height:'100%'}} 
+            viewBox={`0 0 ${innerWidth} ${innerHeight-30}`}
+          >
             {polyline
-              ?<polyline id="drawPolyline" style={drawPath} points={polylinePointsString} ref={this.path} />
-              :<polygon points={polylinePointsString}
-              style={{fill:fillColor, stroke:blackWhite, strokeWidth:2, fillRule:'evenodd'}} />
+              ? <polyline id="drawPolyline" style={drawPath} points={polylinePointsString} ref={this.path} />
+              : <polygon points={polylinePointsString} style={{fill:fillColor, stroke:blackWhite, strokeWidth:2, fillRule:'evenodd'}} />
           }
+
           {clientX && showBox && <rect x={clientX-grid} y={clientY-grid} width={grid*2} height={grid*2} style={{fill:'none',stroke:'#ccc'}}/>}
           </svg>
+
           <div style={{position: 'fixed', width:50, bottom:0, right:75, color: blackWhite, textAlign:"left", fontSize:'0.6em'}} >
             <table>
               <thead>
@@ -328,7 +334,7 @@ class FullScreenSVG extends Component {
               </thead>
               <tbody>
               {Object.keys(this.state).map((key => {
-                let value = key.includes('polylinePoint') ? this.state[key].length : this.state[key]
+                let value = key.includes('polylinePoint') ? this.state[key].length : String(this.state[key])
                 return (
                   <tr>
                     <td>{key}</td>
@@ -345,7 +351,10 @@ class FullScreenSVG extends Component {
             showControls={this.state.showControls}
           />
         </div>
+
+
         <div style={{ position: 'absolute' }} >
+
           <button 
             onClick={() =>{
             this.setState({drawing: !this.state.drawing}
@@ -354,55 +363,26 @@ class FullScreenSVG extends Component {
           >
             {this.state.drawing ? "stop drawing" : "draw"} something random
           </button>
+
           <button onClick={this.downloadSVG}>
             Download SVG
           </button>
+
+          <button onClick={this.back}>
+            back
+          </button>
+
         </div>
+
+
       </div>
     )
   }
 }
-const controls = {
-  mode:"m",
-  direction:"arrows",
-  click:"left click",
-  intervals:"1-9",
-  smaller_grid:"-",
-  larger_grid:"=",
-  show_grid:"g",
-  black_white:"b",
-  fill:"f",
-  polygon_polyline:"p",
-  spaz_out:"a",
-}
 
-const ControlTable = ({toggleControls, showControls}) => {
-  return(
-    <div style={{position: 'fixed', width:50, bottom:10, left:75, textAlign:"left", fontSize:'0.6em'}}>
-      <table  >
-        <thead onClick={()=>toggleControls("showControls")} >
-          <tr><th>Control</th><th>Key</th></tr>
-        </thead>
-        <tbody>
-          {
-            showControls && Object.keys(controls).map( control =>
-              <tr key={control} ><td>{control}</td><td>{controls[control]}</td></tr>
-            )
-          }
-        </tbody>
-      </table>
-     {/*  
-      <div style={{
-        position:"absolute",left:-24,top:'50%',bottom:'50%', 
-        width:0, height:0,
-        borderTop: '10px solid transparent', 
-        borderBottom: '10px solid transparent',
-        borderRight: '20px solid blue',
-      }}>
-      </div> 
-    */}
-    </div>
-  )
-}
 
 export default FullScreenSVG
+
+styles = {
+  // controlTable 
+}

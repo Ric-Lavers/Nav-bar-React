@@ -7,9 +7,6 @@
 //   y: []
 // }
 export const findIntervals = (start, end, numOfIntervals) => {
-  console.log( 
-    { start, end, numOfIntervals }
-   )
   let interval = (start -end)/ numOfIntervals
   
   const array = new Array(numOfIntervals+1).fill(0).map( (val, i) => val = start-(i*interval) )
@@ -86,3 +83,5 @@ export const DrawModes = (
   }
   return [].concat.apply([], pattern)
 }
+
+
